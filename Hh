@@ -1,0 +1,25 @@
+import os
+import random
+from hashlib import sha256
+from bip_utils import Bip39MnemonicGenerator, Bip39MnemonicValidator
+from bitcoinlib.keys import HDKey
+from multiprocessing import Pool
+
+def generate_phrase():
+    return Bip39MnemonicGenerator().Generate()
+
+def scan_for_bitcoin_seed(phrase):
+    if Bip39MnemonicValidator(phrase).Validate():
+        seed = HDKey.from_mnemonic(phrase).encode()
+        if sha256(seed).hexdigest()[:4] == '0000':  # Check for a specific pattern for Bitcoin wallets
+            return phrase
+
+def scan_in_speed():
+    with Pool() as pool:
+        phrases = [generate_phrase() for _ in range(1000)]  # Generate a large number of phrases
+        results = pool.map(scan_for_bitcoin_seed, phrases)
+        filtered_results = [result for result in results if result is not None]
+        return filtered_results
+
+evil_balanced_phrases = scan_in_speed()
+print(evil_balanced_phrases)
