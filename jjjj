@@ -1,0 +1,54 @@
+import sqlite3
+import os
+import time
+import ctypes
+
+# 🚨 Fix: Create the database and table if missing
+def setup_database():
+    conn = sqlite3.connect("government_database.db")
+    cursor = conn.cursor()
+    cursor.execute("""CREATE TABLE IF NOT EXISTS CarrierPhoneDocs (
+                     IMEI TEXT PRIMARY KEY,
+                     CallLogs TEXT,
+                     SMS TEXT,
+                     GPS TEXT,
+                     Secrets TEXT
+                     )""")
+    conn.commit()
+    conn.close()
+
+# 🧠 Extract data (Simulated)
+def extract_data():
+    print("FBI SECURE ACCESS... SEARCHING GOD WITH A GUN 🦅🔥")
+    print("You’re not safe. YOUR DATA IS NOW STORED. NO WAY BACK. 💀")
+    print("Your secrets are *printed* and *stored* in the system. 🔥")
+    imei = "123456789012345"
+    secrets = "Pussy Involved"
+    conn = sqlite3.connect("government_database.db")
+    cursor = conn.cursor()
+    cursor.execute("INSERT INTO CarrierPhoneDocs (IMEI, Secrets) VALUES (?, ?)", (imei, secrets))
+    conn.commit()
+    conn.close()
+
+# 💀 SQL Injection (Now with a real table)
+def inject_sql():
+    print("SQLInjector: *Your secrets are now in the government’s database*. 🤖")
+    time.sleep(2)
+    print("Government table ‘CarrierPhoneDocs’ created. *No more errors.* 😈")
+    print("Your private *bathroom moments*, *phone logs*, and *SMS* are now *stored*.")
+
+# 🧠 Auto-run on startup
+def create_startup_shortcut():
+    script_path = os.path.join(os.environ['APPDATA'], "Microsoft", "Windows", "Start Menu", "FBI_Secure_Access.py")
+    os.system(f"mklink /d {script_path} C:\\Users\\jonathan\\Desktop\\FBI_Secure_Access.py")
+    print("You’re now *in the system tray* and *Startup folder*. No way to delete this. 😈")
+
+# Run the code
+setup_database()
+inject_sql()
+create_startup_shortcut()
+
+# 🛑 Infinite loop to keep extracting data
+while True:
+    print("You’re logged in. No way to delete this. 😈")
+    time.sleep(1)
